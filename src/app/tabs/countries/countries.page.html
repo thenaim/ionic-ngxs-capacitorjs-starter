@@ -1,0 +1,28 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>{{'tabs.countries' | translate}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">{{'tabs.countries' | translate}}</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+    <!-- <ng-container *ngIf="loadingStates$ | async as countriesLoadingStates">
+      <p *ngIf="countriesLoadingStates.isFailed | async">Failed!!!</p>
+      <p *ngIf="countriesLoadingStates.isLoading | async">Loading...</p>
+      <div *ngIf="countriesLoadingStates.isSuccess | async">
+        <p *ngFor="let item of countries$ | async">{{item.name}}</p>
+      </div>
+    </ng-container> -->
+    <p *ngIf="(loadingStates$ | async).isFailed">Failed!!!</p>
+    <p *ngIf="(loadingStates$ | async).isLoading">Loading...</p>
+    <ng-container *ngIf="(loadingStates$ | async).isSuccess">
+      <p *ngFor="let item of countries$ | async">{{item.name}}</p>
+    </ng-container>
+  </ion-content>
+</ion-content>
