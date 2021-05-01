@@ -2,20 +2,17 @@ import { Injectable } from '@angular/core';
 import { Action, State, StateContext } from '@ngxs/store';
 import { catchError, tap } from 'rxjs/operators';
 import { ApiService } from 'src/app/core/api/api.service';
-import { FetchDataAction } from './countries.actions';
-import { CountriesStateModel } from './countries.models';
+import { ChangeActiveRegion, FetchDataAction } from './countries.actions';
+import { CountriesStateModel, Regions } from './countries.models';
 
 export const initialState: CountriesStateModel = {
   isLoading: false,
   isFailed: false,
   isSuccess: false,
   listData: [],
+  regions: ['Africa', 'Americas', 'Asia', 'Europe', 'Oceania'],
+  activeRegion: 'Africa',
   errors: [],
-  pagination: {
-    pagesCount: 0,
-    page: 0,
-    pageSize: 0,
-  },
 };
 
 @State<CountriesStateModel>({
@@ -63,6 +60,18 @@ export class CountriesState {
       isSuccess: false,
       isFailed: true,
       errors: [...state.errors, action.error],
+    });
+  }
+
+  @Action(ChangeActiveRegion)
+  changeActiveRegion(ctx: StateContext<CountriesStateModel>, action: { activeRegion: Regions }) {
+    const state = ctx.getState();
+    if (state.activeRegion === action.activeRegion) {
+      return;
+    }
+    ctx.setState({
+      ...state,
+      ...action,
     });
   }
 }

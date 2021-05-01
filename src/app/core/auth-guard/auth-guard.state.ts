@@ -3,13 +3,15 @@ import { Action, State, StateContext } from '@ngxs/store';
 import { AuthAction } from './auth-guard.actions';
 import { AuthStateModel } from './auth-guard.models';
 
+export const initialState: AuthStateModel = {
+  isAuth: false,
+  accessToken: '',
+  refreshToken: '',
+};
+
 @State<AuthStateModel>({
   name: 'auth_guard',
-  defaults: {
-    isAuth: false,
-    accessToken: '',
-    refreshToken: '',
-  },
+  defaults: initialState,
 })
 @Injectable()
 export class AuthGuardState {

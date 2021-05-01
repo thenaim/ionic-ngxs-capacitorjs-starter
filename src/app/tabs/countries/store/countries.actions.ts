@@ -1,4 +1,5 @@
 import { apiAllCountries } from './countries.constant';
+import { Regions } from './countries.models';
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace FetchDataAction {
@@ -26,4 +27,9 @@ export namespace FetchDataAction {
       public isLoading: boolean = false,
     ) {}
   }
+}
+
+export class ChangeActiveRegion {
+  static readonly type = '[ChangeActiveRegion] Change rctive region';
+  constructor(public activeRegion: Regions) {}
 }
