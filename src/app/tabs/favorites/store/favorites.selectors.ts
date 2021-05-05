@@ -13,7 +13,7 @@ export class FavoritesSelectors {
         const foundedCountries: CountryModel[] = [];
         console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!', favorites);
 
-        favorites.items.forEach((favorite) => {
+        favorites.listData.forEach((favorite) => {
           const findCountry = countries.listData.find((country) => country.alpha3Code === favorite);
           if (findCountry) {
             foundedCountries.push({ ...findCountry, like: true });

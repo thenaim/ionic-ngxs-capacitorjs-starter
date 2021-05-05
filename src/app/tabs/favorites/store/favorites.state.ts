@@ -4,7 +4,7 @@ import { AddCountryLikeAction, RemoveCountryLikeAction } from './favorites.actio
 import { FavoritesStateModel } from './favorites.models';
 
 export const initialState: FavoritesStateModel = {
-  items: ['DZA', 'AGO', 'BEN'],
+  listData: ['DZA', 'AGO', 'BEN'],
 };
 
 @State<FavoritesStateModel>({
@@ -19,14 +19,14 @@ export class FaviritesState {
   addCountryLikeAction(ctx: StateContext<FavoritesStateModel>, action: AddCountryLikeAction) {
     const state = ctx.getState();
 
-    const index = state.items.indexOf(action.alpha3Code);
+    const index = state.listData.indexOf(action.alpha3Code);
     if (index > -1) {
       return;
     }
 
     ctx.setState({
       ...state,
-      items: [...state.items, action.alpha3Code],
+      listData: [...state.listData, action.alpha3Code],
     });
   }
 
@@ -35,7 +35,7 @@ export class FaviritesState {
     const state = ctx.getState();
     ctx.setState({
       ...state,
-      items: state.items.filter((like) => like !== action.alpha3Code),
+      listData: state.listData.filter((like) => like !== action.alpha3Code),
     });
   }
 }

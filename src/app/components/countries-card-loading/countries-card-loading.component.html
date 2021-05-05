@@ -1,0 +1,36 @@
+<ion-grid>
+  <ion-row>
+    <ion-col
+      size="12"
+      size-md="6"
+      offsetMd="3"
+      class="countries-card-container"
+      *ngFor="let skeleton of loadingLength(10)"
+    >
+      <ion-card mode="ios" class="countries-card">
+        <ion-item lines="none">
+          <ion-skeleton-text slot="start" animated class="countries-card-image"></ion-skeleton-text>
+          <ion-label>
+            <h1><ion-skeleton-text animated style="width: 45%; height: 20px"></ion-skeleton-text></h1>
+            <h3><ion-skeleton-text animated style="width: 65%; height: 10px"></ion-skeleton-text></h3>
+          </ion-label>
+        </ion-item>
+
+        <ion-row>
+          <ion-col>
+            <ion-skeleton-text
+              animated
+              style="margin-left: 16px; margin-right: auto; border-radius: 50%; width: 30px; height: 30px"
+            ></ion-skeleton-text>
+          </ion-col>
+          <ion-col>
+            <ion-skeleton-text
+              animated
+              style="margin-right: 16px; margin-left: auto; border-radius: 50%; width: 30px; height: 30px"
+            ></ion-skeleton-text>
+          </ion-col>
+        </ion-row>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+</ion-grid>

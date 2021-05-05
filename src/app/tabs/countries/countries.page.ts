@@ -6,7 +6,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { takeWhile } from 'rxjs/operators';
 import { RemoveCountryLikeAction, AddCountryLikeAction } from '../favorites/store/favorites.actions';
 import { CountryCardModel } from '../../components/countries-card/countries-card.models';
-import { FetchCountriesAction } from './store/countries.actions';
+import { CountriesActions } from './store/countries.actions';
 import { Region } from './store/countries.models';
 import { CountriesSelectors } from './store/countries.selectors';
 import { CountryModel } from './countries.models';
@@ -49,16 +49,8 @@ export class CountriesPage implements OnInit {
     console.log(event);
   }
 
-  async goToCountry(country) {
-    await this.navController.navigateForward(`/tabs/countries/detail/` + country.alpha3Code);
-  }
-
-  onSubmit() {
-    //
-  }
-
   ngOnInit() {
-    this.store.dispatch(new FetchCountriesAction.FetchData());
+    this.store.dispatch(new CountriesActions.Fetch());
 
     this.activeRegion.valueChanges.pipe(takeWhile(() => this.subscription)).subscribe(async () => {
       if (this.ionContent) {

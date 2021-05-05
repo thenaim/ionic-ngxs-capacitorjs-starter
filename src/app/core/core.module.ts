@@ -19,7 +19,7 @@ import { FaviritesState } from '../tabs/favorites/store/favorites.state';
 import { AuthHandler } from './auth-guard/auth-guard.handler';
 import { AuthGuardState } from './auth-guard/auth-guard.state';
 import { AppErrorHandler } from './error-handler/app-error-handler.service';
-import { CustomRouterStateSerializer } from './router/custom-router-state';
+import { CustomRouterStateSerializer } from './router/custom-router-serializer';
 
 export interface RouterStateParams {
   root: {

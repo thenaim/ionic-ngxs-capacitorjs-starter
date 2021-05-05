@@ -1,11 +1,12 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button [text]="''" defaultHref="/tabs/countries"></ion-back-button>
+    </ion-buttons>
     <ion-title *ngIf="country$ | async as country"> {{country.name}} </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <div *ngIf="(loadingStates$ | async).isSuccess && country$ | async as country">{{country.name}}</div>
-
-
 </ion-content>

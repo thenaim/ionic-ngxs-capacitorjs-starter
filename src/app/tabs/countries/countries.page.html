@@ -2,141 +2,19 @@
   <ion-toolbar>
     <ion-title>{{'tabs.countries' | translate}}</ion-title>
   </ion-toolbar>
-  <ion-toolbar>
-    <form [formGroup]="activeRegion" ngxsForm="countries.activeRegion" (ngSubmit)="onSubmit()">
-      <ion-segment scrollable formControlName="region">
-        <ion-segment-button *ngFor="let region of regions$ | async" [value]="region">
-          <ion-label>{{region}}</ion-label>
-        </ion-segment-button>
-      </ion-segment>
-    </form>
+  <ion-toolbar [formGroup]="activeRegion" ngxsForm="countries.activeRegion">
+    <ion-segment scrollable formControlName="region">
+      <ion-segment-button *ngFor="let region of regions$ | async" [value]="region">
+        <ion-label>{{region}}</ion-label>
+      </ion-segment-button>
+    </ion-segment>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" [scrollY]="!(loadingStates$ | async).isLoading">
   <p *ngIf="(loadingStates$ | async).isFailed">Failed!!!</p>
 
-  <ion-grid>
-    <ion-row *ngIf="(loadingStates$ | async).isLoading">
-      <ion-col
-        size="12"
-        size-md="6"
-        offsetMd="3"
-        class="countries-card-container"
-        *ngFor="let skeleton of [0,1,2,3,4,5,6,7,8,9]"
-      >
-        <ion-card mode="ios" class="countries-card">
-          <ion-item lines="none">
-            <ion-skeleton-text slot="start" animated class="countries-card-image"></ion-skeleton-text>
-            <ion-label>
-              <h1><ion-skeleton-text animated style="width: 45%; height: 20px"></ion-skeleton-text></h1>
-              <h3><ion-skeleton-text animated style="width: 65%; height: 10px"></ion-skeleton-text></h3>
-            </ion-label>
-          </ion-item>
-
-          <ion-row>
-            <ion-col>
-              <ion-skeleton-text
-                animated
-                style="margin-left: 16px; margin-right: auto; width: 50px; height: 10px"
-              ></ion-skeleton-text>
-            </ion-col>
-            <ion-col>
-              <ion-skeleton-text
-                animated
-                style="margin-right: 16px; margin-left: auto; width: 50px; height: 10px"
-              ></ion-skeleton-text>
-            </ion-col>
-          </ion-row>
-        </ion-card>
-      </ion-col>
-    </ion-row>
-
-    <!-- <ion-row *ngIf="(loadingStates$ | async).isSuccess">
-      <ion-virtual-scroll [items]="countries$ | async" approxItemHeight="330px">
-        <ion-col
-          size="12"
-          size-md="6"
-          offsetMd="3"
-          class="countries-card-container"
-          *virtualItem="let country"
-          (click)="goToCountry(country)"
-        >
-          <ion-card mode="ios" class="countries-card">
-            <ion-item lines="none">
-              <ion-avatar slot="start" class="countries-card-image">
-                <ion-img [src]="country.flag"></ion-img>
-              </ion-avatar>
-              <ion-label>
-                <h1>{{country.name}}</h1>
-                <h3>{{country.capital}}</h3>
-              </ion-label>
-            </ion-item>
-
-            <ion-row>
-              <ion-col class="countries-card-actions-left">
-                <ion-button fill="clear">
-                  <ion-icon slot="icon-only" name="heart-outline"></ion-icon>
-                </ion-button>
-              </ion-col>
-              <ion-col class="countries-card-actions-right">
-                <ion-button fill="clear">
-                  <ion-icon slot="icon-only" name="share-outline"></ion-icon>
-                </ion-button>
-              </ion-col>
-            </ion-row>
-          </ion-card>
-        </ion-col>
-      </ion-virtual-scroll> -->
-    <!-- <ion-col
-        size="12"
-        size-md="6"
-        offsetMd="3"
-        class="countries-card-container"
-        *ngFor="let country of countries$ | async"
-        (click)="goToCountry(country)"
-      >
-        <ion-card mode="ios" class="countries-card">
-          <ion-item lines="none">
-            <ion-avatar slot="start">
-              <ion-img [src]="country.flag"></ion-img>
-            </ion-avatar>
-            <ion-label>
-              <h2>{{country.name}}</h2>
-              <h3>{{country.capital}}</h3>
-              <p>Listen, I've had a pretty messed up day...</p>
-            </ion-label>
-          </ion-item>
-          <div class="card-image">
-            <ion-img [src]="country.flag"></ion-img>
-          </div>
-          <ion-card-header style="padding-bottom: 0">
-            <ion-card-subtitle>{{country.capital}}</ion-card-subtitle>
-            <ion-card-title>{{country.name}}</ion-card-title>
-          </ion-card-header>
-
-          <ion-row>
-            <ion-col style="padding-left: 0px; text-align: left">
-              <ion-button
-                fill="clear"
-                style="--padding-top: 0; --padding-end: 0; --padding-bottom: 0; --padding-start: 16px; margin: 0"
-              >
-                <ion-icon slot="icon-only" name="person-circle"></ion-icon>
-              </ion-button>
-            </ion-col>
-            <ion-col style="padding-right: 0px; text-align: right">
-              <ion-button
-                fill="clear"
-                style="--padding-top: 0; --padding-end: 16px; --padding-bottom: 0; --padding-start: 0; margin: 0"
-              >
-                <ion-icon slot="icon-only" name="person-circle"></ion-icon>
-              </ion-button>
-            </ion-col>
-          </ion-row>
-        </ion-card>
-      </ion-col> -->
-    <!-- </ion-row> -->
-  </ion-grid>
+  <app-countries-card-loading *ngIf="(loadingStates$ | async).isLoading"></app-countries-card-loading>
 
   <app-countries-card
     [countries]="countries$ | async"

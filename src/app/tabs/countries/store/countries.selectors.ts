@@ -14,7 +14,7 @@ export class CountriesSelectors {
           if (option.region === activeRegionType) {
             filtered.push({
               ...option,
-              like: !!favoritesState.items.find((like) => like === option.alpha3Code),
+              like: !!favoritesState.listData.find((like) => like === option.alpha3Code),
             });
           }
           return filtered;

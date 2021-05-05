@@ -1,3 +1,3 @@
 export class FavoritesStateModel {
-  items: string[];
+  listData: string[];
 }

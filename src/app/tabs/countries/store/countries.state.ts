@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Action, State, StateContext } from '@ngxs/store';
 import { catchError, tap } from 'rxjs/operators';
 import { ApiService } from 'src/app/core/api/api.service';
-import { FetchCountriesAction } from './countries.actions';
+import { CountriesActions } from './countries.actions';
 import { CountriesStateModel } from './countries.models';
 
 export const initialState: CountriesStateModel = {
@@ -30,32 +30,32 @@ export const initialState: CountriesStateModel = {
 export class CountriesState {
   constructor(private apiService: ApiService) {}
 
-  @Action(FetchCountriesAction.FetchData)
-  fetchCountries(ctx: StateContext<CountriesStateModel>, action: FetchCountriesAction.FetchData) {
-    ctx.dispatch(new FetchCountriesAction.Start());
+  @Action(CountriesActions.Fetch)
+  fetchCountries(ctx: StateContext<CountriesStateModel>, action: CountriesActions.Fetch) {
+    ctx.patchState({
+      isLoading: true,
+    });
 
     return this.apiService.get(action.api).pipe(
-      tap((countries) => ctx.dispatch(new FetchCountriesAction.Success(countries))),
-      catchError(() => ctx.dispatch(new FetchCountriesAction.Fail('Error! Please try again.'))),
+      tap((countries) => ctx.dispatch(new CountriesActions.FetchSuccess(countries))),
+      catchError(() => ctx.dispatch(new CountriesActions.FetchFail('Error! Please try again.'))),
     );
   }
 
-  @Action(FetchCountriesAction.Start)
-  fetchStart(ctx: StateContext<CountriesStateModel>, action: FetchCountriesAction.Start) {
-    ctx.patchState({
-      ...action,
-    });
+  @Action(CountriesActions.FetchSuccess)
+  fetchSuccess(ctx: StateContext<CountriesStateModel>, action: CountriesActions.FetchSuccess) {
+    setTimeout(() => {
+      ctx.patchState({
+        ...action,
+        isLoading: false,
+        isSuccess: true,
+        isFailed: false,
+      });
+    }, 2000);
   }
 
-  @Action(FetchCountriesAction.Success)
-  fetchSuccess(ctx: StateContext<CountriesStateModel>, action: FetchCountriesAction.Success) {
-    ctx.patchState({
-      ...action,
-    });
-  }
-
-  @Action(FetchCountriesAction.Fail)
-  fetchFail(ctx: StateContext<CountriesStateModel>, action: FetchCountriesAction.Fail) {
+  @Action(CountriesActions.FetchFail)
+  fetchFail(ctx: StateContext<CountriesStateModel>, action: CountriesActions.FetchFail) {
     const state = ctx.getState();
     ctx.patchState({
       isLoading: false,
