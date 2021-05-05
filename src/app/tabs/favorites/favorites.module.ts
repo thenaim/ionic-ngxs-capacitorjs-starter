@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { SharedModule } from 'src/app/shared/shared.module';
 import { CountriesCardComponent } from '../../components/countries-card/countries-card.component';
+import { SharedModule } from '../../shared/shared.module';
 import { FavoritesPage } from './favorites.page';
 import { FavoritesPageRoutingModule } from './favorites-routing.module';
 

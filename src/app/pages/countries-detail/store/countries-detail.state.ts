@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Action, State, StateContext } from '@ngxs/store';
 import { catchError, tap } from 'rxjs/operators';
-import { ApiService } from 'src/app/core/api/api.service';
+import { ApiService } from '../../../core/api/api.service';
 import { FetchCountryAction } from './countries-detail.actions';
 import { apiCountryDetail } from './countries-detail.constant';
 import { CountryDetailStateModel } from './countries-detail.models';

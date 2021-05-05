@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NavController, Platform } from '@ionic/angular';
 import { Store } from '@ngxs/store';
-import { AuthAction } from 'src/app/core/auth-guard/auth-guard.actions';
+import { AuthAction } from '../../../core/auth-guard/auth-guard.actions';
 
 @Component({
   selector: 'app-login',

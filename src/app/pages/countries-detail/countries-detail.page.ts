@@ -3,7 +3,7 @@ import { Actions, Select, Store } from '@ngxs/store';
 import { Subject } from 'rxjs';
 import { NavController } from '@ionic/angular';
 import { Observable } from 'rxjs/internal/Observable';
-import { CountryModel } from 'src/app/tabs/countries/countries.models';
+import { CountryModel } from '../../tabs/countries/countries.models';
 import { CountryDetailSelectors } from './store/countries-detail.selectors';
 import { FetchCountryAction } from './store/countries-detail.actions';
 

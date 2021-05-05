@@ -1,4 +1,4 @@
-import { CountryModel } from 'src/app/tabs/countries/countries.models';
+import { CountryModel } from '../../../tabs/countries/countries.models';
 
 export class CountryDetailStateModel {
   isLoading: boolean;

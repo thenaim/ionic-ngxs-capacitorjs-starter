@@ -3,8 +3,8 @@ import { CanActivate } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { Store } from '@ngxs/store';
 import { map } from 'rxjs/operators';
-import { appConfig } from 'src/app/app.config';
 import { Observable } from 'rxjs';
+import { appConfig } from '../../app.config';
 import { AuthGuardState } from './auth-guard.state';
 import { AuthGuardSelectors } from './auth-guard.selectors';
 

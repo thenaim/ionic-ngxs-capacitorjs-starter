@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { Actions, ofActionDispatched } from '@ngxs/store';
-import { appConfig } from 'src/app/app.config';
+import { appConfig } from '../../app.config';
 import { AuthStateModel } from './auth-guard.models';
 import { AuthAction } from './auth-guard.actions';
 

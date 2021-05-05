@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { SharedModule } from 'src/app/shared/shared.module';
+import { SharedModule } from '../../shared/shared.module';
 import { CountriesDetailPageRoutingModule } from './countries-detail-routing.module';
 
 import { CountriesDetailPage } from './countries-detail.page';

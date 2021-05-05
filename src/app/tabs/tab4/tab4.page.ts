@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngxs/store';
-import { AuthAction } from 'src/app/core/auth-guard/auth-guard.actions';
+import { AuthAction } from '../../core/auth-guard/auth-guard.actions';
 
 @Component({
   selector: 'app-tab4',
