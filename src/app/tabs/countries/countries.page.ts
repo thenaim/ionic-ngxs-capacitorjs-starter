@@ -1,9 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { IonContent, NavController } from '@ionic/angular';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
-import { ChangeActiveRegion, FetchDataAction } from './store/countries.actions';
-import { Regions } from './store/countries.models';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { takeWhile } from 'rxjs/operators';
+import { RemoveCountryLikeAction, AddCountryLikeAction } from '../favorites/store/favorites.actions';
+import { CountryCardModel } from '../../components/countries-card/countries-card.models';
+import { FetchCountriesAction } from './store/countries.actions';
+import { Region } from './store/countries.models';
 import { CountriesSelectors } from './store/countries.selectors';
+import { CountryModel } from './countries.models';
 
 @Component({
   selector: 'app-countries',
@@ -11,22 +17,61 @@ import { CountriesSelectors } from './store/countries.selectors';
   styleUrls: ['countries.page.scss'],
 })
 export class CountriesPage implements OnInit {
+  @ViewChild(IonContent) ionContent: IonContent;
+
   @Select(CountriesSelectors.selectLoadingStates()) loadingStates$: Observable<{
     isLoading: boolean;
     isFailed: boolean;
     isSuccess: boolean;
   }>;
-  @Select(CountriesSelectors.selectCountries()) countries$: Observable<any[]>;
-  @Select(CountriesSelectors.selectRegions()) regions$: Observable<Regions[]>;
-  @Select(CountriesSelectors.selectActiveRegion()) activeRegion$: Observable<string>;
+  @Select(CountriesSelectors.selectCountries()) countries$: Observable<CountryModel[]>;
+  @Select(CountriesSelectors.selectRegions()) regions$: Observable<Region[]>;
 
-  constructor(private store: Store) {}
+  activeRegion: FormGroup = this.fb.group({
+    region: this.fb.control('', [Validators.required]),
+  });
 
-  onChangeRegion(region: Regions) {
-    this.store.dispatch(new ChangeActiveRegion(region));
+  private subscription = true;
+  constructor(private store: Store, private fb: FormBuilder, private navController: NavController) {}
+
+  async onActionCard(event: CountryCardModel) {
+    await this.navController.navigateForward(`/tabs/countries/detail/` + event.country.alpha3Code);
+  }
+
+  async onActionLike(event: CountryCardModel) {
+    if (event.country.like) {
+      return this.store.dispatch(new RemoveCountryLikeAction(event.country.alpha3Code));
+    }
+    this.store.dispatch(new AddCountryLikeAction(event.country.alpha3Code));
+  }
+
+  async onActionShare(event: CountryCardModel) {
+    console.log(event);
+  }
+
+  async goToCountry(country) {
+    await this.navController.navigateForward(`/tabs/countries/detail/` + country.alpha3Code);
+  }
+
+  onSubmit() {
+    //
   }
 
   ngOnInit() {
-    this.store.dispatch(new FetchDataAction.FetchData());
+    this.store.dispatch(new FetchCountriesAction.FetchData());
+
+    this.activeRegion.valueChanges.pipe(takeWhile(() => this.subscription)).subscribe(async () => {
+      if (this.ionContent) {
+        await this.ionContent.scrollToTop();
+      }
+    });
+  }
+
+  ionViewDidEnter() {
+    this.subscription = true;
+  }
+
+  ionViewDidLeave() {
+    this.subscription = false;
   }
 }

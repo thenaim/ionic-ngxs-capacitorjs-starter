@@ -1,5 +1,5 @@
 <ion-tabs (ionTabsDidChange)="onTabChange($event)">
-  <ion-tab-bar slot="bottom">
+  <ion-tab-bar slot="bottom" [translucent]="true">
     <ion-tab-button *ngFor="let tab of tabs" [tab]="tab.id">
       <ion-icon [name]="tab.icon"></ion-icon>
       <ion-label>{{'tabs.' + tab.id | translate}}</ion-label>

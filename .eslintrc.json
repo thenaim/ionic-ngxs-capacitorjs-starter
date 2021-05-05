@@ -64,7 +64,8 @@
             "prefix": "app",
             "style": "camelCase"
           }
-        ]
+        ],
+        "@angular-eslint/no-output-on-prefix": 0
       }
     },
     {

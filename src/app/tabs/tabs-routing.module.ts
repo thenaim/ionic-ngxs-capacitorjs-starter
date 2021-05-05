@@ -9,11 +9,25 @@ const routes: Routes = [
     children: [
       {
         path: 'countries',
-        loadChildren: () => import('./countries/countries.module').then((m) => m.CountriesPageModule),
+        children: [
+          {
+            path: '',
+
+            data: {
+              title: 'hello',
+            },
+            loadChildren: () => import('./countries/countries.module').then((m) => m.CountriesPageModule),
+          },
+          {
+            path: 'detail/:id',
+            loadChildren: () =>
+              import('../pages/countries-detail/countries-detail.module').then((m) => m.CountriesDetailPageModule),
+          },
+        ],
       },
       {
-        path: 'tab2',
-        loadChildren: () => import('./tab2/tab2.module').then((m) => m.Tab2PageModule),
+        path: 'favorites',
+        loadChildren: () => import('./favorites/favorites.module').then((m) => m.FavoritesPageModule),
       },
       {
         path: 'tab3',

@@ -7,6 +7,8 @@ export const environment = {
   envName: 'DEV',
   production: false,
   test: false,
+  api: 'https://restcountries.eu/rest',
+  apiVersion: 'v2',
 };
 
 /*

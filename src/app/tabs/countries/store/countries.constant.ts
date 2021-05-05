@@ -1,4 +1,3 @@
-export const apiKey = 'https://restcountries.eu/rest';
-export const apiVersion = 'v2';
+import { environment } from 'src/environments/environment';
 
-export const apiAllCountries = `${apiKey}/${apiVersion}/all`;
+export const apiAllCountries = `${environment.api}/${environment.apiVersion}/all`;

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Store } from '@ngxs/store';
 
 export interface Tab {
   id: string;
@@ -12,15 +13,15 @@ export interface Tab {
   styleUrls: ['tabs.page.scss'],
 })
 export class TabsPage {
-  activeTab = 'tab1';
+  activeTab = 'countries';
   tabs: Tab[] = [
-    { id: 'countries', badge: 0, icon: 'chatbubble-ellipses-outline' },
-    { id: 'tab2', badge: 0, icon: 'barbell-outline' },
+    { id: 'countries', badge: 0, icon: 'globe-outline' },
+    { id: 'favorites', badge: 0, icon: 'heart-outline' },
     { id: 'tab3', badge: 0, icon: 'reader-outline' },
     { id: 'tab4', badge: 0, icon: 'person-circle-outline' },
   ];
 
-  constructor() {}
+  constructor(private store: Store) {}
 
   /**
    * Set active tab on change

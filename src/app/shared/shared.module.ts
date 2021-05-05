@@ -6,11 +6,12 @@ import { IonicModule } from '@ionic/angular';
  * Other modules
  */
 import { TranslateModule } from '@ngx-translate/core';
+import { NgxsFormPluginModule } from '@ngxs/form-plugin';
 
 @NgModule({
-  imports: [CommonModule, FormsModule, TranslateModule],
+  imports: [CommonModule, FormsModule, TranslateModule, NgxsFormPluginModule.forRoot()],
   declarations: [],
-  exports: [IonicModule, CommonModule, FormsModule, ReactiveFormsModule, TranslateModule],
+  exports: [IonicModule, CommonModule, FormsModule, ReactiveFormsModule, TranslateModule, NgxsFormPluginModule],
   entryComponents: [],
 })
 export class SharedModule {}

@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { Action, State, StateContext } from '@ngxs/store';
 import { catchError, tap } from 'rxjs/operators';
 import { ApiService } from 'src/app/core/api/api.service';
-import { ChangeActiveRegion, FetchDataAction } from './countries.actions';
-import { CountriesStateModel, Regions } from './countries.models';
+import { FetchCountriesAction } from './countries.actions';
+import { CountriesStateModel } from './countries.models';
 
 export const initialState: CountriesStateModel = {
   isLoading: false,
@@ -11,7 +11,14 @@ export const initialState: CountriesStateModel = {
   isSuccess: false,
   listData: [],
   regions: ['Africa', 'Americas', 'Asia', 'Europe', 'Oceania'],
-  activeRegion: 'Africa',
+  activeRegion: {
+    model: {
+      region: 'Africa',
+    },
+    dirty: false,
+    status: '',
+    errors: {},
+  },
   errors: [],
 };
 
@@ -23,55 +30,38 @@ export const initialState: CountriesStateModel = {
 export class CountriesState {
   constructor(private apiService: ApiService) {}
 
-  @Action(FetchDataAction.FetchData)
-  fetchCountries(ctx: StateContext<CountriesStateModel>, action: FetchDataAction.FetchData) {
-    ctx.dispatch(new FetchDataAction.Start());
+  @Action(FetchCountriesAction.FetchData)
+  fetchCountries(ctx: StateContext<CountriesStateModel>, action: FetchCountriesAction.FetchData) {
+    ctx.dispatch(new FetchCountriesAction.Start());
 
     return this.apiService.get(action.api).pipe(
-      tap((countries) => ctx.dispatch(new FetchDataAction.Success(countries))),
-      catchError(() => ctx.dispatch(new FetchDataAction.Fail('Error! Please try again.'))),
+      tap((countries) => ctx.dispatch(new FetchCountriesAction.Success(countries))),
+      catchError(() => ctx.dispatch(new FetchCountriesAction.Fail('Error! Please try again.'))),
     );
   }
 
-  @Action(FetchDataAction.Start)
-  fetchStart(ctx: StateContext<CountriesStateModel>, action: FetchDataAction.Start) {
-    const state = ctx.getState();
-    ctx.setState({
-      ...state,
+  @Action(FetchCountriesAction.Start)
+  fetchStart(ctx: StateContext<CountriesStateModel>, action: FetchCountriesAction.Start) {
+    ctx.patchState({
       ...action,
     });
   }
 
-  @Action(FetchDataAction.Success)
-  fetchSuccess(ctx: StateContext<CountriesStateModel>, action: FetchDataAction.Success) {
-    const state = ctx.getState();
-    ctx.setState({
-      ...state,
+  @Action(FetchCountriesAction.Success)
+  fetchSuccess(ctx: StateContext<CountriesStateModel>, action: FetchCountriesAction.Success) {
+    ctx.patchState({
       ...action,
     });
   }
 
-  @Action(FetchDataAction.Fail)
-  fetchFail(ctx: StateContext<CountriesStateModel>, action: FetchDataAction.Fail) {
+  @Action(FetchCountriesAction.Fail)
+  fetchFail(ctx: StateContext<CountriesStateModel>, action: FetchCountriesAction.Fail) {
     const state = ctx.getState();
-    ctx.setState({
-      ...state,
+    ctx.patchState({
       isLoading: false,
       isSuccess: false,
       isFailed: true,
       errors: [...state.errors, action.error],
-    });
-  }
-
-  @Action(ChangeActiveRegion)
-  changeActiveRegion(ctx: StateContext<CountriesStateModel>, action: { activeRegion: Regions }) {
-    const state = ctx.getState();
-    if (state.activeRegion === action.activeRegion) {
-      return;
-    }
-    ctx.setState({
-      ...state,
-      ...action,
     });
   }
 }

@@ -3,4 +3,6 @@ export const environment = {
   envName: 'TEST',
   production: false,
   test: true,
+  api: 'https://restcountries.eu/rest',
+  apiVersion: 'v2',
 };

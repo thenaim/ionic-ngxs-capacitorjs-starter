@@ -1,0 +1,64 @@
+<ion-grid>
+  <ion-row>
+    <ion-col
+      size="12"
+      size-md="6"
+      offsetMd="3"
+      class="countries-card-container"
+      *ngFor="let country of countries; trackBy: trackByFn"
+    >
+      <ion-card mode="ios" class="countries-card" (click)="onCard(country)">
+        <ion-item lines="none">
+          <ion-avatar slot="start" class="countries-card-image">
+            <ion-img [src]="country.flag"></ion-img>
+          </ion-avatar>
+          <ion-label>
+            <h1>{{ country.name }}</h1>
+            <h3>{{ country.capital }}</h3>
+          </ion-label>
+        </ion-item>
+
+        <ion-row>
+          <ion-col class="countries-card-actions-left">
+            <ion-button fill="clear" (click)="onLike($event, country)">
+              <ion-icon slot="icon-only" [name]="country.like ? 'heart' : 'heart-outline'"></ion-icon>
+            </ion-button>
+          </ion-col>
+          <ion-col class="countries-card-actions-right">
+            <ion-button fill="clear" (click)="onShare($event, country)">
+              <ion-icon slot="icon-only" name="share-outline"></ion-icon>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-card>
+    </ion-col>
+    <!-- <ion-virtual-scroll [items]="countries" [trackBy]="trackByFn" approxItemHeight="330px" style="opacity: 1">
+      <ion-col size="12" size-md="6" offsetMd="3" class="countries-card-container" *virtualItem="let country">
+        <ion-card mode="ios" class="countries-card" (click)="onCard(country)">
+          <ion-item lines="none">
+            <ion-avatar slot="start" class="countries-card-image">
+              <ion-img [src]="country.flag"></ion-img>
+            </ion-avatar>
+            <ion-label>
+              <h1>{{ country.name }}</h1>
+              <h3>{{ country.capital }}</h3>
+            </ion-label>
+          </ion-item>
+
+          <ion-row>
+            <ion-col class="countries-card-actions-left">
+              <ion-button fill="clear" (click)="onLike($event, country)">
+                <ion-icon slot="icon-only" [name]="country.like ? 'heart' : 'heart-outline'"></ion-icon>
+              </ion-button>
+            </ion-col>
+            <ion-col class="countries-card-actions-right">
+              <ion-button fill="clear" (click)="onShare($event, country)">
+                <ion-icon slot="icon-only" name="share-outline"></ion-icon>
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-card>
+      </ion-col>
+    </ion-virtual-scroll> -->
+  </ion-row>
+</ion-grid>

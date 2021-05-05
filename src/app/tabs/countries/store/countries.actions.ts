@@ -1,8 +1,8 @@
+import { CountryModel } from '../countries.models';
 import { apiAllCountries } from './countries.constant';
-import { Regions } from './countries.models';
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
-export namespace FetchDataAction {
+export namespace FetchCountriesAction {
   export class FetchData {
     static readonly type = '[FetchData] Fetch all countries';
     constructor(public api: string = apiAllCountries) {}
@@ -15,7 +15,7 @@ export namespace FetchDataAction {
 
   export class Success {
     static readonly type = '[FetchData.Success] Fetch data is success';
-    constructor(public listData: any[], public isSuccess: boolean = true, public isLoading: boolean = false) {}
+    constructor(public listData: CountryModel[], public isSuccess: boolean = true, public isLoading: boolean = false) {}
   }
 
   export class Fail {
@@ -27,9 +27,4 @@ export namespace FetchDataAction {
       public isLoading: boolean = false,
     ) {}
   }
-}
-
-export class ChangeActiveRegion {
-  static readonly type = '[ChangeActiveRegion] Change rctive region';
-  constructor(public activeRegion: Regions) {}
 }
