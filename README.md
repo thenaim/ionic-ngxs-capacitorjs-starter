@@ -1,1 +1,1 @@
-<p align="center"><img src="./template-cover.png"></p>
+<p align="center"><img src="./github-project-cover.png"></p>
