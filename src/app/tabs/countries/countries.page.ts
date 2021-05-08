@@ -1,14 +1,12 @@
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { IonContent, NavController } from '@ionic/angular';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
-import { Component, OnInit, ViewChild } from '@angular/core';
 import { takeWhile } from 'rxjs/operators';
-import { RemoveCountryLikeAction, AddCountryLikeAction } from '../favorites/store/favorites.actions';
 import { CountryCardModel } from '../../components/countries-card/countries-card.models';
-import { CountriesActions } from './store/countries.actions';
-import { Region } from './store/countries.models';
-import { CountriesSelectors } from './store/countries.selectors';
+import { CountriesSelectors, Region, CountriesActions } from './store';
 import { CountryModel } from './countries.models';
 
 @Component({
@@ -28,21 +26,25 @@ export class CountriesPage implements OnInit {
   @Select(CountriesSelectors.selectRegions()) regions$: Observable<Region[]>;
 
   activeRegion: FormGroup = this.fb.group({
-    region: this.fb.control('', [Validators.required]),
+    region: this.fb.control(''),
   });
 
-  private subscription = true;
-  constructor(private store: Store, private fb: FormBuilder, private navController: NavController) {}
+  private subscriptions = true;
+  constructor(
+    private store: Store,
+    private route: ActivatedRoute,
+    private fb: FormBuilder,
+    private navController: NavController,
+  ) {}
 
   async onActionCard(event: CountryCardModel) {
-    await this.navController.navigateForward(`/tabs/countries/detail/` + event.country.alpha3Code);
+    await this.navController.navigateForward(['./', 'country', event.country.alpha3Code], {
+      relativeTo: this.route,
+    });
   }
 
   async onActionLike(event: CountryCardModel) {
-    if (event.country.like) {
-      return this.store.dispatch(new RemoveCountryLikeAction(event.country.alpha3Code));
-    }
-    this.store.dispatch(new AddCountryLikeAction(event.country.alpha3Code));
+    console.log(event);
   }
 
   async onActionShare(event: CountryCardModel) {
@@ -52,7 +54,7 @@ export class CountriesPage implements OnInit {
   ngOnInit() {
     this.store.dispatch(new CountriesActions.Fetch());
 
-    this.activeRegion.valueChanges.pipe(takeWhile(() => this.subscription)).subscribe(async () => {
+    this.activeRegion.valueChanges.pipe(takeWhile(() => this.subscriptions)).subscribe(async () => {
       if (this.ionContent) {
         await this.ionContent.scrollToTop();
       }
@@ -60,10 +62,10 @@ export class CountriesPage implements OnInit {
   }
 
   ionViewDidEnter() {
-    this.subscription = true;
+    this.subscriptions = true;
   }
 
   ionViewDidLeave() {
-    this.subscription = false;
+    this.subscriptions = false;
   }
 }

@@ -20,12 +20,19 @@
 
         <ion-row>
           <ion-col class="countries-card-actions-left">
-            <ion-button fill="clear" (click)="onLike($event, country)">
+            <ion-button fill="clear" [color]="country.like ? 'primary' : 'medium'" (click)="onLike($event, country)">
               <ion-icon slot="icon-only" [name]="country.like ? 'heart' : 'heart-outline'"></ion-icon>
             </ion-button>
           </ion-col>
           <ion-col class="countries-card-actions-right">
-            <ion-button fill="clear" (click)="onShare($event, country)">
+            <ion-button
+              fill="clear"
+              [color]="country.comparison ? 'primary' : 'medium'"
+              (click)="onComparison($event, country)"
+            >
+              <ion-icon slot="icon-only" [name]="country.comparison ? 'stats-chart' : 'stats-chart-outline'"></ion-icon>
+            </ion-button>
+            <ion-button fill="clear" color="medium" (click)="onShare($event, country)">
               <ion-icon slot="icon-only" name="share-outline"></ion-icon>
             </ion-button>
           </ion-col>

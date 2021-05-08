@@ -5,22 +5,21 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">{{'tabs.favorites' | translate}}</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
   <ion-row class="ion-justify-content-center" style="height: 100%" *ngIf="!(favorites$ | async).length">
     <ion-col size-xl="5" size-lg="6" size-md="9" size-xs="12" class="ion-align-self-center">
       <div class="ion-text-center">
         <ion-icon color="primary" [name]="'heart-outline'" style="width: 100%; height: 25vh"></ion-icon>
-        <!-- <img src="./assets/illustrations/favorite.svg" class="ion-margin-bottom" /> -->
         <h2 class="ion-margin-top">No favorites added yet.</h2>
         <h6>Try to add from countries page</h6>
       </div>
     </ion-col>
   </ion-row>
 
-  <app-countries-card [countries]="favorites$ | async"></app-countries-card>
+  <app-countries-card
+    [isMainPage]="false"
+    [countries]="favorites$ | async"
+    (onActionCard)="onActionCard($event)"
+    (onActionLike)="onActionLike($event)"
+    (onActionShare)="onActionShare($event)"
+  ></app-countries-card>
 </ion-content>

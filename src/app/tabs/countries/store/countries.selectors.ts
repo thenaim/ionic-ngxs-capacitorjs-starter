@@ -1,4 +1,7 @@
 import { createSelector } from '@ngxs/store';
+import { reduce } from 'lodash';
+import { ComparisonStateModel } from '../../comparison/store/comparison.models';
+import { ComparisonState } from '../../comparison/store/comparison.state';
 import { FavoritesStateModel } from '../../favorites/store/favorites.models';
 import { FaviritesState } from '../../favorites/store/favorites.state';
 import { CountriesStateModel } from './countries.models';
@@ -7,18 +10,27 @@ import { CountriesState } from './countries.state';
 export class CountriesSelectors {
   static selectCountries() {
     return createSelector(
-      [CountriesState, FaviritesState],
-      (countriesState: CountriesStateModel, favoritesState: FavoritesStateModel) =>
-        countriesState.listData.reduce((filtered, option) => {
-          const activeRegionType = countriesState.activeRegion.model.region;
-          if (option.region === activeRegionType) {
-            filtered.push({
-              ...option,
-              like: !!favoritesState.listData.find((like) => like === option.alpha3Code),
-            });
-          }
-          return filtered;
-        }, []),
+      [CountriesState, FaviritesState, ComparisonState],
+      (
+        countriesState: CountriesStateModel,
+        favoritesState: FavoritesStateModel,
+        comparisonState: ComparisonStateModel,
+      ) =>
+        reduce(
+          countriesState.listData,
+          (filtered, option) => {
+            const activeRegionType = countriesState.activeRegion.model.region;
+            if (option.region === activeRegionType) {
+              filtered.push({
+                ...option,
+                like: !!favoritesState.listData.find((like) => like === option.alpha3Code),
+                comparison: !!comparisonState.listData.find((comparison) => comparison === option.alpha3Code),
+              });
+            }
+            return filtered;
+          },
+          [],
+        ),
     );
   }
 

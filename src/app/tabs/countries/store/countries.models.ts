@@ -6,9 +6,9 @@ export interface ActiveRegionFormModel {
   model?: {
     region: Region;
   };
-  dirty: boolean;
-  status: string;
-  errors: any;
+  dirty?: boolean;
+  status?: string;
+  errors?: any;
 }
 
 export class CountriesStateModel {

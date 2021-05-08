@@ -1,0 +1,13 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>{{'tabs.comparison' | translate}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-slides pager="true" scrollbar [options]="slidesOptions" (ionSlidesDidLoad)="swiperOnInit()">
+    <ion-slide *ngFor="let comparison of comparisons$ | async">
+      <app-country-detail [country]="comparison" style="height: 100%"></app-country-detail>
+    </ion-slide>
+  </ion-slides>
+</ion-content>

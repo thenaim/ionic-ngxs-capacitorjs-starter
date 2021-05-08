@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Action, State, StateContext } from '@ngxs/store';
+import { AddBadgeAction, RemoveBadgeAction } from '../../tabs.state';
 import { AddCountryLikeAction, RemoveCountryLikeAction } from './favorites.actions';
 import { FavoritesStateModel } from './favorites.models';
 
 export const initialState: FavoritesStateModel = {
-  listData: ['DZA', 'AGO', 'BEN'],
+  listData: [],
 };
 
 @State<FavoritesStateModel>({
@@ -28,6 +29,8 @@ export class FaviritesState {
       ...state,
       listData: [...state.listData, action.alpha3Code],
     });
+
+    ctx.dispatch(new AddBadgeAction('favorites'));
   }
 
   @Action(RemoveCountryLikeAction)
@@ -37,5 +40,7 @@ export class FaviritesState {
       ...state,
       listData: state.listData.filter((like) => like !== action.alpha3Code),
     });
+
+    ctx.dispatch(new RemoveBadgeAction('favorites'));
   }
 }

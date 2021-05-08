@@ -1,21 +1,33 @@
 {
   "root": true,
-  "ignorePatterns": ["projects/**/*"],
+  "ignorePatterns": [
+    "projects/**/*"
+  ],
   "overrides": [
     {
-      "files": ["*.ts"],
+      "files": [
+        "*.ts"
+      ],
       "parserOptions": {
-        "project": ["tsconfig.json", "e2e/tsconfig.json"],
+        "project": [
+          "tsconfig.json",
+          "e2e/tsconfig.json"
+        ],
         "createDefaultProgram": true
       },
-      "plugins": ["prettier", "unused-imports"],
+      "plugins": [
+        "prettier",
+        "unused-imports"
+      ],
       "extends": [
         "plugin:@angular-eslint/ng-cli-compat",
         "plugin:@angular-eslint/ng-cli-compat--formatting-add-on",
         "plugin:@angular-eslint/template/process-inline-templates"
       ],
       "rules": {
-        "prettier/prettier": ["error"],
+        "prettier/prettier": [
+          "error"
+        ],
         "no-shadow": "off",
         "no-unused-vars": "off",
         "unused-imports/no-unused-imports": "error",
@@ -29,24 +41,15 @@
           }
         ],
         "import/order": [
-          "error",
-          {
-            "pathGroups": [
-              {
-                "pattern": "@app/**",
-                "group": "external",
-                "position": "after"
-              }
-            ],
-            "pathGroupsExcludedImportTypes": [
-              "builtin"
-            ]
-          }
+          "error"
         ],
         "@angular-eslint/component-class-suffix": [
           "error",
           {
-            "suffixes": ["Page", "Component"]
+            "suffixes": [
+              "Page",
+              "Component"
+            ]
           }
         ],
         "@angular-eslint/component-selector": [
@@ -69,9 +72,13 @@
       }
     },
     {
-      "files": ["*.html"],
+      "files": [
+        "*.html"
+      ],
       "parser": "@angular-eslint/template-parser",
-      "plugins": ["@angular-eslint/template"],
+      "plugins": [
+        "@angular-eslint/template"
+      ],
       "rules": {}
     }
   ]

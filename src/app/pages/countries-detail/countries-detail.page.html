@@ -8,5 +8,163 @@
 </ion-header>
 
 <ion-content>
-  <div *ngIf="(loadingStates$ | async).isSuccess && country$ | async as country">{{country.name}}</div>
+  <ng-container *ngIf="(loadingStates$ | async).isSuccess && country$ | async as country">
+    <app-country-detail
+      [country]="country"
+      [countryBorders]="countryBorders$ | async"
+      (onActionCard)="onActionCard($event)"
+    ></app-country-detail>
+    <!-- <div class="ion-margin">
+      <ion-card mode="ios" style="max-width: 320px; margin: 0 auto">
+        <ion-img [src]="country.flag" style="max-width: 320px; margin: auto"></ion-img>
+      </ion-card>
+    </div>
+    <ion-list lines="full">
+      <ion-item lines="full" *ngIf="country.capital">
+        <ion-label slot="start">
+          <h1>Capital</h1>
+        </ion-label>
+        <ion-label class="ion-text-right">
+          <h2>{{country.capital}}</h2>
+        </ion-label>
+      </ion-item>
+      <ion-item lines="full" *ngIf="country.region">
+        <ion-label slot="start">
+          <h1>Region</h1>
+        </ion-label>
+        <ion-label class="ion-text-right">
+          <h2>{{country.region}}</h2>
+        </ion-label>
+      </ion-item>
+      <ion-item lines="full" *ngIf="country.subregion">
+        <ion-label slot="start">
+          <h1>Subregion</h1>
+        </ion-label>
+        <ion-label class="ion-text-right ion-text-wrap">
+          <h2>{{country.subregion}}</h2>
+        </ion-label>
+      </ion-item>
+      <ion-item lines="full" *ngIf="country.demonym">
+        <ion-label slot="start">
+          <h1>Demonym</h1>
+        </ion-label>
+        <ion-label class="ion-text-right ion-text-wrap">
+          <h2>{{country.demonym}}</h2>
+        </ion-label>
+      </ion-item>
+      <ion-item lines="full" *ngIf="country.nativeName">
+        <ion-label slot="start">
+          <h1>Native name</h1>
+        </ion-label>
+        <ion-label class="ion-text-right ion-text-wrap">
+          <h2>{{country.nativeName}}</h2>
+        </ion-label>
+      </ion-item>
+      <ion-item lines="full" *ngIf="country.population">
+        <ion-label slot="start">
+          <h1>Population</h1>
+        </ion-label>
+        <ion-label class="ion-text-right ion-text-wrap">
+          <h2>{{country.population}}</h2>
+        </ion-label>
+      </ion-item>
+      <ion-item lines="full" *ngIf="country.topLevelDomain.length">
+        <ion-label slot="start">
+          <h1>Domain</h1>
+        </ion-label>
+        <ion-label class="ion-text-right ion-text-wrap">
+          <h2>{{country.topLevelDomain[0]}}</h2>
+        </ion-label>
+      </ion-item>
+      <ng-container *ngIf="country.languages.length">
+        <ion-list-header mode="ios" lines="none">
+          <ion-label>Languages</ion-label>
+        </ion-list-header>
+        <ng-container *ngFor="let language of country.languages;">
+          <ion-item lines="full" *ngFor="let languageKey of getObjectKeys(language)">
+            <ion-label>
+              <h1>{{languageKey}}</h1>
+            </ion-label>
+            <ion-label class="ion-text-right ion-text-wrap">
+              <h2>{{language[languageKey]}}</h2>
+            </ion-label>
+          </ion-item>
+        </ng-container>
+      </ng-container>
+      <ng-container *ngIf="country.altSpellings.length">
+        <ion-list-header mode="ios" lines="none">
+          <ion-label>Alternative spellings</ion-label>
+        </ion-list-header>
+        <ion-item lines="full" *ngFor="let altSpelling of country.altSpellings;">
+          <ion-label>
+            <h1>{{altSpelling}}</h1>
+          </ion-label>
+        </ion-item>
+      </ng-container>
+      <ng-container *ngIf="country.translations">
+        <ion-list-header mode="ios" lines="none">
+          <ion-label>Translations</ion-label>
+        </ion-list-header>
+        <ion-item lines="full" *ngFor="let translationKey of getObjectKeys(country.translations);">
+          <ion-label>
+            <h1 class="ion-text-uppercase">{{translationKey}}</h1>
+          </ion-label>
+          <ion-label class="ion-text-right ion-text-wrap">
+            <h2>{{country.translations[translationKey]}}</h2>
+          </ion-label>
+        </ion-item>
+      </ng-container>
+      <ng-container *ngIf="country.timezones.length">
+        <ion-list-header mode="ios" lines="none">
+          <ion-label>Timezones</ion-label>
+        </ion-list-header>
+        <ion-item lines="full" *ngFor="let timezone of country.timezones">
+          <ion-label>
+            <h1>{{timezone}}</h1>
+          </ion-label>
+        </ion-item>
+      </ng-container>
+      <ng-container *ngIf="country.currencies.length">
+        <ion-list-header mode="ios" lines="none">
+          <ion-label>Currencies</ion-label>
+        </ion-list-header>
+        <ng-container *ngFor="let currency of country.currencies">
+          <ion-item lines="full">
+            <ion-label>
+              <h1>Name</h1>
+            </ion-label>
+            <ion-label class="ion-text-right ion-text-wrap">
+              <h2>{{currency.name}}</h2>
+            </ion-label>
+          </ion-item>
+          <ion-item lines="full">
+            <ion-label>
+              <h1>Code</h1>
+            </ion-label>
+            <ion-label class="ion-text-right ion-text-wrap">
+              <h2>{{currency.code}}</h2>
+            </ion-label>
+          </ion-item>
+          <ion-item lines="full">
+            <ion-label>
+              <h1>Symbol</h1>
+            </ion-label>
+            <ion-label class="ion-text-right ion-text-wrap">
+              <h2>{{currency.symbol}}</h2>
+            </ion-label>
+          </ion-item>
+        </ng-container>
+      </ng-container>
+      <ng-container *ngIf="country.borders.length">
+        <ion-list-header mode="ios" lines="none">
+          <ion-label>Borders with</ion-label>
+        </ion-list-header>
+        <app-countries-card
+          [isMainPage]="false"
+          [countries]="countryBorders$ | async"
+          (onActionCard)="onActionCard($event)"
+        ></app-countries-card>
+      </ng-container>
+    </ion-list> -->
+  </ng-container>
 </ion-content>

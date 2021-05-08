@@ -25,4 +25,16 @@ export class ApiService {
       headers: this.httpHeaderOptions(),
     });
   }
+
+  public post(url: string, body: any): Observable<any> {
+    return this.http.post(url, body, {
+      headers: this.httpHeaderOptions(),
+    });
+  }
+
+  public put(url: string, body: any): Observable<any> {
+    return this.http.put(url, body, {
+      headers: this.httpHeaderOptions(),
+    });
+  }
 }

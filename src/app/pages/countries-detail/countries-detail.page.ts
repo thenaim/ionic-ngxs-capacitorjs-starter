@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Actions, Select, Store } from '@ngxs/store';
-import { Subject } from 'rxjs';
+import { Select, Store } from '@ngxs/store';
 import { NavController } from '@ionic/angular';
 import { Observable } from 'rxjs/internal/Observable';
+import { ActivatedRoute } from '@angular/router';
 import { CountryModel } from '../../tabs/countries/countries.models';
+import { CountryCardModel } from '../../components/countries-card/countries-card.models';
 import { CountryDetailSelectors } from './store/countries-detail.selectors';
 import { FetchCountryAction } from './store/countries-detail.actions';
 
@@ -19,13 +20,23 @@ export class CountriesDetailPage implements OnInit {
     isSuccess: boolean;
   }>;
   @Select(CountryDetailSelectors.selectCountry()) country$: Observable<CountryModel>;
+  @Select(CountryDetailSelectors.selectCountryBorders()) countryBorders$: Observable<CountryModel[]>;
   @Select(CountryDetailSelectors.selectCountryCode()) countryCode$: Observable<string>;
 
-  private destroy$ = new Subject<void>();
-
-  constructor(private store: Store, private actions$: Actions, private navController: NavController) {}
+  private subscriptions = true;
+  constructor(private store: Store, private route: ActivatedRoute, private navController: NavController) {}
 
   ngOnInit() {}
+
+  async onActionCard(event: CountryCardModel) {
+    console.log(event);
+    //console.log(await this.route.url.toPromise());
+    await this.navController.navigateForward(['../', event.country.alpha3Code], { relativeTo: this.route });
+  }
+
+  getObjectKeys(object) {
+    return Object.keys(object);
+  }
 
   ionViewDidEnter() {
     const countryCode = this.store.selectSnapshot(CountryDetailSelectors.selectCountryCode());
@@ -35,8 +46,5 @@ export class CountriesDetailPage implements OnInit {
     this.navController.navigateRoot('/tabs/countries');
   }
 
-  ionViewDidLeave() {
-    this.destroy$.next();
-    this.destroy$.complete();
-  }
+  ionViewDidLeave() {}
 }

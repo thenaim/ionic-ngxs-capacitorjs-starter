@@ -1,11 +1,8 @@
 import { Component } from '@angular/core';
-import { Store } from '@ngxs/store';
-
-export interface Tab {
-  id: string;
-  badge: number;
-  icon: string;
-}
+import { Select, Store } from '@ngxs/store';
+import { Observable } from 'rxjs/internal/Observable';
+import { TabModel } from './tabs.model';
+import { TabsSelectors } from './tabs.selectors';
 
 @Component({
   selector: 'app-tabs',
@@ -13,13 +10,8 @@ export interface Tab {
   styleUrls: ['tabs.page.scss'],
 })
 export class TabsPage {
+  @Select(TabsSelectors.selectTabs()) tabs$: Observable<TabModel[]>;
   activeTab = 'countries';
-  tabs: Tab[] = [
-    { id: 'countries', badge: 0, icon: 'globe-outline' },
-    { id: 'favorites', badge: 0, icon: 'heart-outline' },
-    { id: 'tab3', badge: 0, icon: 'reader-outline' },
-    { id: 'tab4', badge: 0, icon: 'person-circle-outline' },
-  ];
 
   constructor(private store: Store) {}
 
@@ -30,5 +22,9 @@ export class TabsPage {
    */
   onTabChange(event: { tab: string }) {
     this.activeTab = event.tab;
+  }
+
+  trackByFn(index: number) {
+    return index;
   }
 }

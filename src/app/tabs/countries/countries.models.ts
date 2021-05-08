@@ -58,4 +58,5 @@ export interface CountryModel {
   regionalBlocs: RegionalBloc[];
   cioc: string;
   like?: boolean;
+  comparison?: boolean;
 }

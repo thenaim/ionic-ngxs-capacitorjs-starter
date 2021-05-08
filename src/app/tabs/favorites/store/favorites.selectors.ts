@@ -11,7 +11,6 @@ export class FavoritesSelectors {
       [CountriesState, FaviritesState],
       (countries: CountriesStateModel, favorites: FavoritesStateModel) => {
         const foundedCountries: CountryModel[] = [];
-        console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!', favorites);
 
         favorites.listData.forEach((favorite) => {
           const findCountry = countries.listData.find((country) => country.alpha3Code === favorite);

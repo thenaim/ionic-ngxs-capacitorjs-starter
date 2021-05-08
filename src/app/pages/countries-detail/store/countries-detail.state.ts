@@ -27,21 +27,27 @@ export class CountryDetailState {
     ctx.dispatch(new FetchCountryAction.Start());
     const state = ctx.getState();
 
-    const countryLoaded = Object.keys(state.countryDetail).find((countryCode) => countryCode === action.countryCode);
+    const countryLoaded = Object.keys(state.countryDetail).find(
+      (countryCodeKey) => countryCodeKey === action.countryCode,
+    );
     if (countryLoaded) {
-      ctx.dispatch(new FetchCountryAction.Success());
-      return;
+      if (state.countryDetail[countryLoaded]) {
+        return ctx.dispatch(new FetchCountryAction.Success());
+      }
     }
 
     return this.apiService.get(apiCountryDetail(action.countryCode)).pipe(
       tap((country: any[]) => {
-        ctx.patchState({
-          countryDetail: {
-            ...state.countryDetail,
-            [action.countryCode]: country[0],
-          },
-        });
-        ctx.dispatch(new FetchCountryAction.Success());
+        if (country[0]) {
+          ctx.patchState({
+            countryDetail: {
+              ...state.countryDetail,
+              [action.countryCode]: country[0],
+            },
+          });
+          return ctx.dispatch(new FetchCountryAction.Success());
+        }
+        ctx.dispatch(new FetchCountryAction.Fail('Error! Country not found.'));
       }),
       catchError(() => ctx.dispatch(new FetchCountryAction.Fail('Error! Please try again.'))),
     );

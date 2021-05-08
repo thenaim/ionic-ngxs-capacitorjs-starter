@@ -12,14 +12,10 @@ const routes: Routes = [
         children: [
           {
             path: '',
-
-            data: {
-              title: 'hello',
-            },
             loadChildren: () => import('./countries/countries.module').then((m) => m.CountriesPageModule),
           },
           {
-            path: 'detail/:id',
+            path: 'country/:alpha3Code',
             loadChildren: () =>
               import('../pages/countries-detail/countries-detail.module').then((m) => m.CountriesDetailPageModule),
           },
@@ -27,11 +23,26 @@ const routes: Routes = [
       },
       {
         path: 'favorites',
-        loadChildren: () => import('./favorites/favorites.module').then((m) => m.FavoritesPageModule),
+        children: [
+          {
+            path: '',
+            loadChildren: () => import('./favorites/favorites.module').then((m) => m.FavoritesPageModule),
+          },
+          {
+            path: 'country/:alpha3Code',
+            loadChildren: () =>
+              import('../pages/countries-detail/countries-detail.module').then((m) => m.CountriesDetailPageModule),
+          },
+        ],
       },
       {
-        path: 'tab3',
-        loadChildren: () => import('./tab3/tab3.module').then((m) => m.Tab3PageModule),
+        path: 'comparison',
+        children: [
+          {
+            path: '',
+            loadChildren: () => import('./comparison/comparison.module').then((m) => m.СomparisonPageModule),
+          },
+        ],
       },
       {
         path: 'tab4',

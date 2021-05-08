@@ -15,9 +15,6 @@ export const initialState: CountriesStateModel = {
     model: {
       region: 'Africa',
     },
-    dirty: false,
-    status: '',
-    errors: {},
   },
   errors: [],
 };
@@ -32,9 +29,19 @@ export class CountriesState {
 
   @Action(CountriesActions.Fetch)
   fetchCountries(ctx: StateContext<CountriesStateModel>, action: CountriesActions.Fetch) {
+    const state = ctx.getState();
     ctx.patchState({
       isLoading: true,
     });
+
+    if (state.listData.length) {
+      ctx.patchState({
+        isLoading: false,
+        isSuccess: true,
+        isFailed: false,
+      });
+      return;
+    }
 
     return this.apiService.get(action.api).pipe(
       tap((countries) => ctx.dispatch(new CountriesActions.FetchSuccess(countries))),

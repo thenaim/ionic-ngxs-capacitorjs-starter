@@ -1,1 +1,1 @@
-# ionic Ngxs Capacitorjs starter
+<p align="center"><img src="./template-cover.png"></p>

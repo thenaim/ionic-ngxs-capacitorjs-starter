@@ -16,6 +16,8 @@ import { environment } from '../../environments/environment';
 import { CountriesState } from '../tabs/countries/store/countries.state';
 import { CountryDetailState } from '../pages/countries-detail/store/countries-detail.state';
 import { FaviritesState } from '../tabs/favorites/store/favorites.state';
+import { TabsState } from '../tabs/tabs.state';
+import { ComparisonState } from '../tabs/comparison/store/comparison.state';
 import { AuthHandler } from './auth-guard/auth-guard.handler';
 import { AuthGuardState } from './auth-guard/auth-guard.state';
 import { AppErrorHandler } from './error-handler/app-error-handler.service';
@@ -38,11 +40,14 @@ export interface RouterStateParams {
     ReactiveFormsModule,
 
     /* NGXS */
-    NgxsModule.forRoot([AuthGuardState, CountriesState, CountryDetailState, FaviritesState], {
-      developmentMode: !environment.production,
-    }),
+    NgxsModule.forRoot(
+      [AuthGuardState, CountriesState, CountryDetailState, FaviritesState, ComparisonState, TabsState],
+      {
+        developmentMode: !environment.production,
+      },
+    ),
     NgxsStoragePluginModule.forRoot({
-      key: [AuthGuardState],
+      key: [AuthGuardState, CountriesState, CountryDetailState, FaviritesState],
     }),
     NgxsLoggerPluginModule.forRoot({ logger: console, collapsed: true, disabled: environment.production }),
     NgxsReduxDevtoolsPluginModule.forRoot({ disabled: environment.production }),
