@@ -6,8 +6,8 @@ import { CountriesDetailPage } from './countries-detail.page';
 const routes: Routes = [
   {
     path: '',
-    component: CountriesDetailPage
-  }
+    component: CountriesDetailPage,
+  },
 ];
 
 @NgModule({

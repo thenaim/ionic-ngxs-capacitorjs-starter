@@ -1,0 +1,4 @@
+tasks:
+  - init: npm install
+  - command: npx ng lint
+  - command: npx ionic build
