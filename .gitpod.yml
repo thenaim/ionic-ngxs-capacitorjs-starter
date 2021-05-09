@@ -1,3 +1,4 @@
 tasks:
   - init: npm install
-    command: npx ionic serve
+  - command: npx ng lint
+  - command: npx ionic build

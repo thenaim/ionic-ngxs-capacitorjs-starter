@@ -2,8 +2,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
-import { AuthGuardSelectors } from '../auth-guard/auth-guard.selectors';
-import { AuthGuardState } from '../auth-guard/auth-guard.state';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +10,7 @@ export class ApiService {
   constructor(private store: Store, private http: HttpClient) {}
 
   public httpHeaderOptions(): HttpHeaders {
-    const accessToken = this.store.selectSnapshot<string>(AuthGuardSelectors.authToken(AuthGuardState));
+    // const accessToken = this.store.selectSnapshot<string>(AuthGuardSelectors.authToken(AuthGuardState));
 
     return new HttpHeaders({
       // eslint-disable-next-line @typescript-eslint/naming-convention
