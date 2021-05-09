@@ -8,6 +8,12 @@
   Providing you with the components, templates, native components, ngrx, i18n, themes, auth pages and much more needed to build a mobile application on ionic framework.
 </p>
 
+<p align="center">
+  <a href="https://gitpod.io/#https://github.com/thenaim/ionic-ngxs-capacitorjs-starter" target="_blank">
+    <img src="https://img.shields.io/badge/Gitpod-ready to code and test-blue?logo=gitpod&style=plastic">
+  </a>
+</p>
+
 # Getting started
 
 ```bash
