@@ -1,6 +1,5 @@
 tasks:
-  - init: npm install
-  - command: npm i -D -E @angular/cli
+  - init: npm install && npm i -D -E @angular/cli
   - command: npx ng lint
   - command: npx ionic build
   - command: npx ionic serve
