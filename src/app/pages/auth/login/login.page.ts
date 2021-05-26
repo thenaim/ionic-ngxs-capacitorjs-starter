@@ -16,13 +16,6 @@ export class LoginPage implements OnInit {
 
   onAuth() {
     this.store.dispatch(new AuthAction.Login());
-    // this.store.dispatch(authLogin());
-    // this.navController.navigateRoot('/tabs/tab1');
-    // this.platform.ready().then(() => {
-    //   Plugins.Storage.set({ key: appConfig.storageKeys.token, value: 'USER AUTHED' }).then(async () => {
-    //     await this.navController.navigateRoot('/tabs/tab1');
-    //   });
-    // });
   }
 
   onLogin() {

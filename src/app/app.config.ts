@@ -20,9 +20,4 @@ export const appConfig = {
     redirectOnError: 'tabs',
     redirectOnNotFound: 'tabs',
   },
-
-  /* App storage keys */
-  storageKeys: {
-    token: 'token',
-  },
 };

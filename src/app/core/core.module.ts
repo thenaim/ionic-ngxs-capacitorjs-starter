@@ -9,7 +9,6 @@ import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 import { NgxsRouterPluginModule, RouterStateSerializer } from '@ngxs/router-plugin';
-import { Params } from '@angular/router';
 import { NgxsFormPluginModule } from '@ngxs/form-plugin';
 import { appConfig } from '../app.config';
 import { environment } from '../../environments/environment';
@@ -23,13 +22,23 @@ import { AuthGuardState } from './auth-guard/auth-guard.state';
 import { AppErrorHandler } from './error-handler/app-error-handler.service';
 import { CustomRouterStateSerializer } from './router/custom-router-serializer';
 
-export interface RouterStateParams {
-  root: {
-    url: string;
-    params: Params;
-    queryParams: Params;
-  };
-}
+const ngxsStates = {
+  main: [AuthGuardState, CountriesState, CountryDetailState, FaviritesState, ComparisonState, TabsState],
+  storage: [AuthGuardState, CountriesState, CountryDetailState, FaviritesState],
+};
+
+const ngxsImports = [
+  NgxsModule.forRoot(ngxsStates.main, {
+    developmentMode: !environment.production,
+  }),
+  NgxsStoragePluginModule.forRoot({
+    key: ngxsStates.storage,
+  }),
+  NgxsLoggerPluginModule.forRoot({ logger: console, collapsed: true, disabled: environment.production }),
+  NgxsReduxDevtoolsPluginModule.forRoot({ disabled: environment.production }),
+  NgxsFormPluginModule.forRoot(),
+  NgxsRouterPluginModule.forRoot(),
+];
 
 @NgModule({
   imports: [
@@ -40,20 +49,7 @@ export interface RouterStateParams {
     ReactiveFormsModule,
 
     /* NGXS */
-    NgxsModule.forRoot(
-      [AuthGuardState, CountriesState, CountryDetailState, FaviritesState, ComparisonState, TabsState],
-      {
-        developmentMode: !environment.production,
-      },
-    ),
-    NgxsStoragePluginModule.forRoot({
-      key: [AuthGuardState, CountriesState, CountryDetailState, FaviritesState],
-    }),
-    NgxsLoggerPluginModule.forRoot({ logger: console, collapsed: true, disabled: environment.production }),
-    NgxsReduxDevtoolsPluginModule.forRoot({ disabled: environment.production }),
-    NgxsFormPluginModule.forRoot(),
-    // NgxsIonicRouterModule.forRoot(),
-    NgxsRouterPluginModule.forRoot(),
+    ...ngxsImports,
 
     /* NGX TRANSLATE */
     TranslateModule.forRoot({

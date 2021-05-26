@@ -1,3 +1,9 @@
 tasks:
   - init: npm install && npm i -D -E @angular/cli
     command: npx ionic serve
+vscode:
+  extensions:
+    - dbaeumer.vscode-eslint@2.1.8:d3668785b2744386867631d79537552a
+    - esbenp.prettier-vscode@6.4.0:951c840b4441f6eb0171a511ccec96ee
+    - johnpapa.angular2@11.0.0:4ddc5fe5fd7f0366ee7f1c3fd641b629
+    - angular.ng-template@12.0.0:fbd2896329729b2beb41a49554c5d591
