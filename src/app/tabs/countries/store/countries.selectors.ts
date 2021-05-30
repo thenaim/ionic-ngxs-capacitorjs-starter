@@ -1,10 +1,10 @@
 import { createSelector } from '@ngxs/store';
 import { reduce } from 'lodash';
-import { ComparisonStateModel } from '../../comparison/store/comparison.models';
+import { ComparisonStateModel } from '../../comparison/store/comparison.model';
 import { ComparisonState } from '../../comparison/store/comparison.state';
-import { FavoritesStateModel } from '../../favorites/store/favorites.models';
+import { FavoritesStateModel } from '../../favorites/store/favorites.model';
 import { FaviritesState } from '../../favorites/store/favorites.state';
-import { CountriesStateModel } from './countries.models';
+import { CountriesStateModel } from './countries.model';
 import { CountriesState } from './countries.state';
 
 export class CountriesSelectors {

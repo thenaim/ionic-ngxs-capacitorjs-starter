@@ -1,3 +1,4 @@
+import { AppStoreLoadingStatesModel } from '../../../core/store/store.model';
 import { CountryModel } from '../countries.models';
 
 export type Region = 'Africa' | 'Americas' | 'Asia' | 'Europe' | 'Oceania';
@@ -11,12 +12,8 @@ export interface ActiveRegionFormModel {
   errors?: any;
 }
 
-export class CountriesStateModel {
-  isLoading: boolean;
-  isFailed: boolean;
-  isSuccess: boolean;
+export interface CountriesStateModel extends AppStoreLoadingStatesModel {
   listData: CountryModel[];
   regions: Region[];
   activeRegion: ActiveRegionFormModel;
-  errors: any[];
 }

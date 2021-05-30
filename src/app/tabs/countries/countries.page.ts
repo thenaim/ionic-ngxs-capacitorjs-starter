@@ -5,9 +5,10 @@ import { IonContent, NavController } from '@ionic/angular';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { takeWhile } from 'rxjs/operators';
-import { CountryCardModel } from '../../components/countries-card/countries-card.models';
-import { CountriesSelectors, Region, CountriesActions } from './store';
 import { CountryModel } from './countries.models';
+import { CountriesActions } from './store/countries.actions';
+import { Region } from './store/countries.model';
+import { CountriesSelectors } from './store/countries.selectors';
 
 @Component({
   selector: 'app-countries',
@@ -37,18 +38,18 @@ export class CountriesPage implements OnInit {
     private navController: NavController,
   ) {}
 
-  async onActionCard(event: CountryCardModel) {
-    await this.navController.navigateForward(['./', 'country', event.country.alpha3Code], {
+  async onActionCard(country: CountryModel) {
+    await this.navController.navigateForward(['./', 'country', country.alpha3Code], {
       relativeTo: this.route,
     });
   }
 
-  async onActionLike(event: CountryCardModel) {
-    console.log(event);
+  async onActionLike(country: CountryModel) {
+    console.log(country);
   }
 
-  async onActionShare(event: CountryCardModel) {
-    console.log(event);
+  async onActionShare(country: CountryModel) {
+    console.log(country);
   }
 
   ngOnInit() {

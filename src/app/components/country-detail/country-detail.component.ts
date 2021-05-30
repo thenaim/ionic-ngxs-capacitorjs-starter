@@ -9,8 +9,8 @@ import { CountryModel } from '../../tabs/countries/countries.models';
   styleUrls: ['./country-detail.component.scss'],
 })
 export class CountryDetailComponent implements OnInit {
-  @Input() country: CountryModel;
-  @Input() countryBorders: CountryModel[];
+  @Input() country: CountryModel = null;
+  // @Input() countryBorders: CountryModel[];
   @Output() onActionCard = new EventEmitter<CountryModel>();
   @Output() onActionLike = new EventEmitter<CountryModel>();
   @Output() onActionShare = new EventEmitter<CountryModel>();
@@ -21,13 +21,11 @@ export class CountryDetailComponent implements OnInit {
     return Object.keys(object);
   }
 
-  async onCard(country: CountryModel) {
-    // await this.navController.navigateForward(['../', country.alpha3Code], { relativeTo: this.route });
-
+  onCard(country: CountryModel) {
     this.onActionCard.emit(country);
   }
 
-  async onLike(event: Event, country: CountryModel) {
+  onLike(event: Event, country: CountryModel) {
     this.onActionLike.emit(country);
   }
 

@@ -1,17 +1,23 @@
 import { Injectable } from '@angular/core';
-import { Action, State, StateContext } from '@ngxs/store';
+import { Action, State, StateContext, StateToken } from '@ngxs/store';
 import { AddBadgeAction, RemoveBadgeAction } from '../../tabs.state';
 import { AddCountryComparisonAction, RemoveCountryComparisonAction } from './comparison.actions';
-import { ComparisonStateModel } from './comparison.models';
+import { ComparisonStateModel } from './comparison.model';
 
 export const initialState: ComparisonStateModel = {
-  listData: [],
   minComparisons: 2,
   maxComparisons: 4,
+  listData: [],
+  isLoading: false,
+  isFailed: false,
+  isSuccess: false,
+  error: null,
 };
 
-@State<ComparisonStateModel>({
-  name: 'comparison',
+export const COMPARISON_STATE_TOKEN = new StateToken<ComparisonStateModel>('comparison');
+
+@State({
+  name: COMPARISON_STATE_TOKEN,
   defaults: initialState,
 })
 @Injectable()

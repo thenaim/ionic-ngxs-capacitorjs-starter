@@ -10,7 +10,7 @@ export const initialState: AuthStateModel = {
 };
 
 @State<AuthStateModel>({
-  name: 'auth_guard',
+  name: 'auth',
   defaults: initialState,
 })
 @Injectable()

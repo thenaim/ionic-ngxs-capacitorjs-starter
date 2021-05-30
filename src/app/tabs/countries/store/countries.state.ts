@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Action, State, StateContext } from '@ngxs/store';
+import { Action, State, StateContext, StateToken } from '@ngxs/store';
 import { catchError, tap } from 'rxjs/operators';
 import { ApiService } from '../../../core/api/api.service';
 import { CountriesActions } from './countries.actions';
-import { CountriesStateModel } from './countries.models';
+import { CountriesStateModel } from './countries.model';
 
 export const initialState: CountriesStateModel = {
   isLoading: false,
@@ -16,11 +16,13 @@ export const initialState: CountriesStateModel = {
       region: 'Africa',
     },
   },
-  errors: [],
+  error: null,
 };
 
-@State<CountriesStateModel>({
-  name: 'countries',
+export const COUNTRIES_STATE_TOKEN = new StateToken<CountriesStateModel>('countries');
+
+@State({
+  name: COUNTRIES_STATE_TOKEN,
   defaults: initialState,
 })
 @Injectable()
@@ -63,12 +65,11 @@ export class CountriesState {
 
   @Action(CountriesActions.FetchFail)
   fetchFail(ctx: StateContext<CountriesStateModel>, action: CountriesActions.FetchFail) {
-    const state = ctx.getState();
     ctx.patchState({
       isLoading: false,
       isSuccess: false,
       isFailed: true,
-      errors: [...state.errors, action.error],
+      error: action.error,
     });
   }
 }

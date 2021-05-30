@@ -8,12 +8,8 @@
 </ion-header>
 
 <ion-content>
-  <ng-container *ngIf="(loadingStates$ | async).isSuccess && country$ | async as country">
-    <app-country-detail
-      [country]="country"
-      [countryBorders]="countryBorders$ | async"
-      (onActionCard)="onActionCard($event)"
-    ></app-country-detail>
+  <ng-container *ngIf="(loadingStates$ | async).isSuccess">
+    <app-country-detail [country]="country$ | async" (onActionCard)="onActionCard($event)"></app-country-detail>
     <!-- <div class="ion-margin">
       <ion-card mode="ios" style="max-width: 320px; margin: 0 auto">
         <ion-img [src]="country.flag" style="max-width: 320px; margin: auto"></ion-img>

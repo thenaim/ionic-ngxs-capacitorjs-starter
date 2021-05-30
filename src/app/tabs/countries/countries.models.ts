@@ -49,6 +49,7 @@ export interface CountryModel {
   gini: number;
   timezones: string[];
   borders: string[];
+  bordersList: CountryModel[];
   nativeName: string;
   numericCode: string;
   currencies: Currency[];

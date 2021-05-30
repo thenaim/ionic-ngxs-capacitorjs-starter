@@ -4,41 +4,12 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgxsModule } from '@ngxs/store';
-import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
-import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
-import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
-import { NgxsRouterPluginModule, RouterStateSerializer } from '@ngxs/router-plugin';
-import { NgxsFormPluginModule } from '@ngxs/form-plugin';
+import { RouterStateSerializer } from '@ngxs/router-plugin';
 import { appConfig } from '../app.config';
-import { environment } from '../../environments/environment';
-import { CountriesState } from '../tabs/countries/store/countries.state';
-import { CountryDetailState } from '../pages/countries-detail/store/countries-detail.state';
-import { FaviritesState } from '../tabs/favorites/store/favorites.state';
-import { TabsState } from '../tabs/tabs.state';
-import { ComparisonState } from '../tabs/comparison/store/comparison.state';
 import { AuthHandler } from './auth-guard/auth-guard.handler';
-import { AuthGuardState } from './auth-guard/auth-guard.state';
 import { AppErrorHandler } from './error-handler/app-error-handler.service';
 import { CustomRouterStateSerializer } from './router/custom-router-serializer';
-
-const ngxsStates = {
-  main: [AuthGuardState, CountriesState, CountryDetailState, FaviritesState, ComparisonState, TabsState],
-  storage: [AuthGuardState, CountriesState, CountryDetailState, FaviritesState],
-};
-
-const ngxsImports = [
-  NgxsModule.forRoot(ngxsStates.main, {
-    developmentMode: !environment.production,
-  }),
-  NgxsStoragePluginModule.forRoot({
-    key: ngxsStates.storage,
-  }),
-  NgxsLoggerPluginModule.forRoot({ logger: console, collapsed: true, disabled: environment.production }),
-  NgxsReduxDevtoolsPluginModule.forRoot({ disabled: environment.production }),
-  NgxsFormPluginModule.forRoot(),
-  NgxsRouterPluginModule.forRoot(),
-];
+import { ngxsImports } from './store';
 
 @NgModule({
   imports: [

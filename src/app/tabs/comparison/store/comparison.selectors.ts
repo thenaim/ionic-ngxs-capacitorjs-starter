@@ -1,7 +1,7 @@
 import { createSelector } from '@ngxs/store';
-import { CountriesStateModel } from '../../countries/store/countries.models';
+import { CountriesStateModel } from '../../countries/store/countries.model';
 import { CountriesState } from '../../countries/store/countries.state';
-import { ComparisonStateModel } from './comparison.models';
+import { ComparisonStateModel } from './comparison.model';
 import { ComparisonState } from './comparison.state';
 
 export class ComparisonSelectors {

@@ -1,15 +1,21 @@
 import { Injectable } from '@angular/core';
-import { Action, State, StateContext } from '@ngxs/store';
+import { Action, State, StateContext, StateToken } from '@ngxs/store';
 import { AddBadgeAction, RemoveBadgeAction } from '../../tabs.state';
 import { AddCountryLikeAction, RemoveCountryLikeAction } from './favorites.actions';
-import { FavoritesStateModel } from './favorites.models';
+import { FavoritesStateModel } from './favorites.model';
 
 export const initialState: FavoritesStateModel = {
   listData: [],
+  isLoading: false,
+  isFailed: false,
+  isSuccess: false,
+  error: null,
 };
 
-@State<FavoritesStateModel>({
-  name: 'favirites',
+export const FAVORITES_STATE_TOKEN = new StateToken<FavoritesStateModel>('favorites');
+
+@State({
+  name: FAVORITES_STATE_TOKEN,
   defaults: initialState,
 })
 @Injectable()

@@ -9,7 +9,6 @@ import {
 } from '../../tabs/comparison/store/comparison.actions';
 import { CountryModel } from '../../tabs/countries/countries.models';
 import { RemoveCountryLikeAction, AddCountryLikeAction } from '../../tabs/favorites/store/favorites.actions';
-import { CountryCardModel } from './countries-card.models';
 
 @Component({
   selector: 'app-countries-card',
@@ -19,10 +18,10 @@ import { CountryCardModel } from './countries-card.models';
 export class CountriesCardComponent implements OnInit {
   @Input() isMainPage = true;
   @Input() countries: CountryModel[];
-  @Output() onActionCard = new EventEmitter<CountryCardModel>();
-  @Output() onActionLike = new EventEmitter<CountryCardModel>();
-  @Output() onActionComparison = new EventEmitter<CountryCardModel>();
-  @Output() onActionShare = new EventEmitter<CountryCardModel>();
+  @Output() onActionCard = new EventEmitter<CountryModel>();
+  @Output() onActionLike = new EventEmitter<CountryModel>();
+  @Output() onActionComparison = new EventEmitter<CountryModel>();
+  @Output() onActionShare = new EventEmitter<CountryModel>();
 
   constructor(
     private store: Store,
@@ -31,11 +30,11 @@ export class CountriesCardComponent implements OnInit {
     private alertService: AlertService,
   ) {}
 
-  async onCard(country: CountryModel) {
-    this.onActionCard.emit({ country });
+  onCard(event: Event, country: CountryModel) {
+    this.onActionCard.emit(country);
   }
 
-  async onComparison(event: Event, country: CountryModel) {
+  onComparison(event: Event, country: CountryModel) {
     event.preventDefault();
     event.stopPropagation();
 
@@ -45,7 +44,7 @@ export class CountriesCardComponent implements OnInit {
       this.store.dispatch(new AddCountryComparisonAction(country.alpha3Code));
     }
 
-    this.onActionComparison.emit({ country });
+    this.onActionComparison.emit(country);
   }
 
   async onLike(event: Event, country: CountryModel) {
@@ -80,14 +79,14 @@ export class CountriesCardComponent implements OnInit {
     }
 
     this.store.dispatch(new AddCountryLikeAction(country.alpha3Code));
-    this.onActionLike.emit({ country });
+    this.onActionLike.emit(country);
   }
 
   onShare(event: Event, country: CountryModel) {
     event.preventDefault();
     event.stopPropagation();
 
-    this.onActionShare.emit({ country });
+    this.onActionShare.emit(country);
   }
 
   trackByFn(index: number) {

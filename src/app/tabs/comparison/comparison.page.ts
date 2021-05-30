@@ -16,17 +16,15 @@ export class СomparisonPage {
   @Select(ComparisonSelectors.selectComparisons()) comparisons$: Observable<CountryModel[]>;
 
   slidesOptions = {
-    speed: 1000,
+    speed: 1500,
     pagination: false,
   };
   constructor() {}
 
-  swiperOnInit() {
-    setTimeout(async () => {
-      await this.ionSlides.slideNext();
-    });
+  async swiperOnInit() {
+    await this.ionSlides.slideNext();
     setTimeout(async () => {
       await this.ionSlides.slidePrev();
-    }, 600);
+    }, 1500);
   }
 }

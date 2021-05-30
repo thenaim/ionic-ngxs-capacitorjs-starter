@@ -26,6 +26,10 @@ export const initialState: TabsStateModel = {
     { id: 'comparison', badge: 0, icon: 'stats-chart-outline', disabled: false },
     { id: 'tab4', badge: 0, icon: 'person-circle-outline', disabled: false },
   ],
+  isLoading: false,
+  isFailed: false,
+  isSuccess: false,
+  error: null,
 };
 
 @State<TabsStateModel>({

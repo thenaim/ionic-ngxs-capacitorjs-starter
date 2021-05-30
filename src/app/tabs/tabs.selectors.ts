@@ -1,6 +1,6 @@
 import { createSelector } from '@ngxs/store';
 import { map } from 'lodash';
-import { ComparisonStateModel } from './comparison/store/comparison.models';
+import { ComparisonStateModel } from './comparison/store/comparison.model';
 import { ComparisonState } from './comparison/store/comparison.state';
 import { TabsStateModel } from './tabs.model';
 import { TabsState } from './tabs.state';
