@@ -1,7 +1,7 @@
 <p align="center"><img src="./github-project-cover.png"></p>
 
 <h2 align="center">
-  Introducing a open source ionic/angular starter project
+  ionic/angular/ngxs/capacitorjs starter project
 </h2>
 
 <p align="center">
@@ -22,7 +22,7 @@ cd myApp
 npm i
 
 # Build, before adding any native platforms
-ionic build
+npx ionic build
 
 # Add ios
 npx cap add ios
@@ -55,11 +55,9 @@ For more information, check [ionic capacitorjs docs](https://ionicframework.com/
 # Run in Browser
 
 ```bash
-ionic serve
+npx ionic serve
 
-ionic serve --external
-
-ionic serve --lab
+npx ionic serve --external
 ```
 
 For more information, check [ionic serve docs](https://ionicframework.com/docs/cli/commands/serve)
