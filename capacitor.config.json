@@ -1,5 +1,5 @@
 {
-  "appId": "io.ionic.starter",
+  "appId": "io.ionic.countries",
   "appName": "app",
   "bundledWebRuntime": false,
   "npmClient": "npm",
