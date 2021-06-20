@@ -4,7 +4,7 @@ import { NavController } from '@ionic/angular';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs/internal/Observable';
 import { CountryCardModel } from '../../components/countries-card/countries-card.models';
-import { AlertService } from '../../core/alert/alert.service';
+import { AlertService } from '../../services/alert/alert.service';
 import { CountryModel } from '../countries/countries.models';
 import { ClearBadgeAction } from '../tabs.state';
 import { FavoritesSelectors } from './store/favorites.selectors';

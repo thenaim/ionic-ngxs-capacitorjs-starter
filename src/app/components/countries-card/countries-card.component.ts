@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { Store } from '@ngxs/store';
-import { AlertService } from '../../core/alert/alert.service';
+import { AlertService } from '../../services/alert/alert.service';
 import {
   AddCountryComparisonAction,
   RemoveCountryComparisonAction,
