@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Action, State, StateContext, StateToken, Store } from '@ngxs/store';
 import { catchError, tap } from 'rxjs/operators';
-import { ApiService } from '../../../core/api/api.service';
 import { AppStoreModel } from '../../../core/store';
+import { ApiService } from '../../../services/api/api.service';
 import { CountryModel } from '../../../tabs/countries/countries.models';
 import { FetchCountryAction } from './countries-detail.actions';
 import { apiCountryDetail } from './countries-detail.constant';

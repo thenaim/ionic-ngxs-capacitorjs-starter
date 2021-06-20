@@ -3,7 +3,6 @@ import { ActivatedRoute } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs/internal/Observable';
-import { CountryCardModel } from '../../components/countries-card/countries-card.models';
 import { AlertService } from '../../services/alert/alert.service';
 import { CountryModel } from '../countries/countries.models';
 import { ClearBadgeAction } from '../tabs.state';
@@ -24,17 +23,17 @@ export class FavoritesPage {
     private alertService: AlertService,
   ) {}
 
-  async onActionCard(event: CountryCardModel) {
-    await this.navController.navigateForward(['./', 'country', event.country.alpha3Code], {
+  async onActionCard(event: CountryModel) {
+    await this.navController.navigateForward(['./', 'country', event.alpha3Code], {
       relativeTo: this.route,
     });
   }
 
-  async onActionLike(event: CountryCardModel) {
+  async onActionLike(event: CountryModel) {
     console.log(event);
   }
 
-  async onActionShare(event: CountryCardModel) {
+  async onActionShare(event: CountryModel) {
     console.log(event);
   }
 
